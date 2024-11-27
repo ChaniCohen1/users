@@ -101,7 +101,7 @@ const SignUp = () => {
           </button>
         </div>
         <p className="mt-2 text-gray-700">
-          Don't have an account? <a href="./login" className="text-blue-500">Login</a>
+          Don&apos;t have an account? <a href="./login" className="text-blue-500">Login</a>
         </p>
 
       </div>
