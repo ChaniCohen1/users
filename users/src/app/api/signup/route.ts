@@ -36,6 +36,7 @@ export async function POST(request: Request) {
       username,
       email,
       password: hashedPassword,
+      isGoogleUser: false,
     });
 
     return NextResponse.json(
@@ -44,6 +45,49 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error("Error in signUp:", error);
+    const err = error as Error;
+    return NextResponse.json(
+      { error: "Internal server error", details: err.message },
+      { status: 500 }
+    );
+  }
+}
+
+
+export async function DELETE(request: Request) {
+  try {
+    console.log('Deleting all users...');
+    
+    // מחיקת כל המשתמשים
+    await User.deleteMany({});
+    
+    return NextResponse.json(
+      { message: "All users deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error deleting all users:", error);
+    const err = error as Error;
+    return NextResponse.json(
+      { error: "Internal server error", details: err.message },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(request: Request) {
+  try {
+    console.log('Fetching all users...');
+    
+    // קבלת כל המשתמשים
+    const users = await User.find({});
+
+    return NextResponse.json(
+      { users },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error fetching all users:", error);
     const err = error as Error;
     return NextResponse.json(
       { error: "Internal server error", details: err.message },

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';  // ייבוא פונקציית signIn מ-NextAuth
 import { signup } from '@/app/services/signup';
 
 const SignUp = () => {
@@ -25,6 +26,19 @@ const SignUp = () => {
       console.error('Failed to sign up');
     }
   };
+
+  const handleGoogleSignIn = async () => {
+    // ניסיון להתחבר עם גוגל
+    const res = await signIn('google', { redirect: false });
+
+    // אם ההתחברות הצליחה, נבצע הפנייה לדף הבית
+    if (res?.ok) {
+      router.push('/'); // הפנייה לדף הבית
+    } else {
+      console.error('Google sign-in failed');
+    }
+  };
+
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
@@ -77,6 +91,19 @@ const SignUp = () => {
             Sign Up
           </button>
         </form>
+
+        <div className="text-center">
+          <button
+            onClick={handleGoogleSignIn}
+            className="w-full px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          >
+            Sign Up with Google
+          </button>
+        </div>
+        <p className="mt-2 text-gray-700">
+          Don't have an account? <a href="./login" className="text-blue-500">Login</a>
+        </p>
+
       </div>
     </div>
   );
