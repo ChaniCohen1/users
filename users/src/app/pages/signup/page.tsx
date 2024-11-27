@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signUp } from '@/app/services/signup';
+import { signup } from '@/app/services/signup';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -12,12 +12,15 @@ const SignUp = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("before");
 
-    const response = await signUp(username, email, password);
+    const response = await signup(username, email, password);
+    console.log("after");
+
     if (response) {
       router.push('/'); // מעבר לדף הבית לאחר הרשמה מוצלחת
       console.log("sucsses");
-      
+
     } else {
       console.error('Failed to sign up');
     }

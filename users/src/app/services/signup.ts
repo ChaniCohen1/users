@@ -2,9 +2,9 @@ import axios from "axios";
 import IUser from "../types/user";
 
 
-export const signUp = (username: string, email: string, password: string): Promise<IUser | null> => {
+export const signup = (username: string, email: string, password: string): Promise<IUser | null> => {
     return axios
-        .post('/api/users', {
+        .post('https://users-bay.vercel.app/api/signup', {
             username,
             email,
             password,

@@ -3,12 +3,13 @@ import IUser from "../types/user";
 
 export const login = (email: string, password: string): Promise<IUser | null> => {
     return axios
-        .get(`/api/login?email=${email}&password=${password}`)  // שימוש ב-POST ושיגור נתונים בגוף הבקשה
-        .then(response => response.data.user)
+        .post(`https://users-bay.vercel.app/api/login`, { email, password })
+        .then(response => response.data.user) 
         .catch(error => {
-            console.error('Login error:', error);
-            return null;
+            console.error('Login error:', error.response?.data || error.message);
+            return null; 
         });
 };
 
 export default login;
+
