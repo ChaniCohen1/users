@@ -13,6 +13,15 @@ export default function UserInfo() {
   const { data: session, status } = useSession();
   const [userData, setUserData] = useState<UserData | null>(null);
 
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    return <div>No user is logged in.</div>;
+  }
+  
   useEffect(() => {
     const checkUserSource = () => {
       console.log("Initial session data:", session);
