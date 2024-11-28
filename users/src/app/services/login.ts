@@ -2,8 +2,8 @@ import axios from "axios";
 import IUser from "../types/user";
 
 
-const url = "http://localhost:3000";
-// const url = "https://users-bay.vercel.app";
+// const url = "http://localhost:3000";
+const url = "https://users-bay.vercel.app";
 
 export const login = (email: string, password: string): Promise<IUser | null> => {
     return axios
